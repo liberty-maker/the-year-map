@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "status": "placeholder",
+  "description": "Formula registry for the year matrix calculation engine. Replace placeholder formulas with final rules before production use.",
+  "inputs": ["birthDate", "targetYear", "fullName"],
+  "positions": [
+    {
+      "key": "personalYearSeed",
+      "label": "Personal Year Seed",
+      "formula": "sumDigits(MMDD + targetYear)",
+      "notes": "Initial placeholder position used to validate engine shape."
+    }
+  ]
+}
