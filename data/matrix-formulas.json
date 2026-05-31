@@ -1,0 +1,30 @@
+{
+  "version": "1.0.0",
+  "status": "v1",
+  "description": "The Year Map v1 formula registry for the personal matrix calculation engine.",
+  "energyRule": "If a value is greater than 22, sum its digits until the result is within 1..22. Values from 1..22 return as-is.",
+  "inputs": ["birthDate", "fullName"],
+  "positions": [
+    { "key": "A", "formula": "reduceToEnergy(birthDay)" },
+    { "key": "B", "formula": "birthMonth" },
+    { "key": "V", "formula": "reduceToEnergy(sumDigits(birthYear))" },
+    { "key": "G", "formula": "reduceToEnergy(A + B + V)" },
+    { "key": "D", "formula": "reduceToEnergy(A + B + V + G)" },
+    { "key": "A1", "formula": "reduceToEnergy(A + D)" },
+    { "key": "A2", "formula": "reduceToEnergy(A + A1)" },
+    { "key": "B1", "formula": "reduceToEnergy(B + D)" },
+    { "key": "B2", "formula": "reduceToEnergy(B + B1)" },
+    { "key": "V1", "formula": "reduceToEnergy(V + D)" },
+    { "key": "V2", "formula": "reduceToEnergy(V + V1)" },
+    { "key": "G1", "formula": "reduceToEnergy(G + D)" },
+    { "key": "G2", "formula": "reduceToEnergy(G + G1)" },
+    { "key": "E", "formula": "reduceToEnergy(A + B)" },
+    { "key": "Yo", "formula": "reduceToEnergy(B + V)" },
+    { "key": "Zh", "formula": "reduceToEnergy(V + G)" },
+    { "key": "Z", "formula": "reduceToEnergy(G + A)" },
+    { "key": "D1", "formula": "reduceToEnergy(E + Yo + Zh + Z)" },
+    { "key": "K", "formula": "reduceToEnergy(D + G1)" },
+    { "key": "L", "formula": "reduceToEnergy(D + V1)" },
+    { "key": "M", "formula": "reduceToEnergy(K + L)" }
+  ]
+}
