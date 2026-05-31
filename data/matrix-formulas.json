@@ -1,0 +1,14 @@
+{
+  "version": "0.1.0",
+  "status": "placeholder",
+  "description": "Formula registry for the personal matrix calculation engine. Replace placeholder formulas with final rules before production use.",
+  "inputs": ["birthDate", "fullName"],
+  "positions": [
+    {
+      "key": "lifePathSeed",
+      "label": "Life Path Seed",
+      "formula": "sumDigits(YYYYMMDD)",
+      "notes": "Initial placeholder position used to validate engine shape."
+    }
+  ]
+}
