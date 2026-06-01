@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "status": "v1",
+  "description": "The Year Map v1 formula registry for the year matrix calculation engine.",
+  "energyRule": "If a value is greater than 22, sum its digits until the result is within 1..22. Values from 1..22 return as-is.",
+  "inputs": ["birthDate", "targetYear", "fullName"],
+  "positions": [
+    { "key": "DayCode", "formula": "15 if targetYear is a leap year, otherwise 14" },
+    { "key": "YearCode", "formula": "reduceToEnergy(sumDigits(targetYear))" },
+    { "key": "MonthCode", "formula": "YearCode + 12" },
+    { "key": "A_Year", "formula": "reduceToEnergy(birthDay + DayCode)" },
+    { "key": "B_Year", "formula": "reduceToEnergy(birthMonth + MonthCode)" },
+    { "key": "V_Year", "formula": "reduceToEnergy(birthYear + targetYear)" },
+    { "key": "G_Year", "formula": "reduceToEnergy(A_Year + B_Year + V_Year)" },
+    { "key": "D_Year", "formula": "reduceToEnergy(A_Year + B_Year + V_Year + G_Year)" },
+    { "key": "E_Year", "formula": "reduceToEnergy(A_Year + B_Year)" },
+    { "key": "Yo_Year", "formula": "reduceToEnergy(B_Year + V_Year)" },
+    { "key": "Zh_Year", "formula": "reduceToEnergy(V_Year + G_Year)" },
+    { "key": "Z_Year", "formula": "reduceToEnergy(G_Year + A_Year)" },
+    { "key": "K_Year", "formula": "reduceToEnergy(D_Year + G_Year)" },
+    { "key": "L_Year", "formula": "reduceToEnergy(D_Year + V_Year)" },
+    { "key": "M_Year", "formula": "reduceToEnergy(K_Year + L_Year)" }
+  ]
+}
