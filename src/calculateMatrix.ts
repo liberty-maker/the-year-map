@@ -1,52 +1,19 @@
-export type MatrixInput = {
-  birthDate: string;
-  fullName?: string;
-};
+import { reduceToEnergy, sumDigits } from './reduceToEnergy';
+import type { BaseMatrixValues, BirthDateInput, CalculationResult, CalculationStep } from './types';
 
-export type MatrixPoint =
-  | 'A'
-  | 'B'
-  | 'V'
-  | 'G'
-  | 'D'
-  | 'A1'
-  | 'A2'
-  | 'B1'
-  | 'B2'
-  | 'V1'
-  | 'V2'
-  | 'G1'
-  | 'G2'
-  | 'E'
-  | 'Yo'
-  | 'Zh'
-  | 'Z'
-  | 'D1'
-  | 'K'
-  | 'L'
-  | 'M';
-
-export type CalculationStep = {
-  key: MatrixPoint;
-  formula: string;
-  input: string;
-  rawValue: number;
-  value: number;
-};
-
-export type MatrixResult = {
-  formulaVersion: string;
+export type MatrixInput = BirthDateInput;
+export type MatrixPoint = keyof BaseMatrixValues & string;
+export type MatrixResult = Omit<CalculationResult<BaseMatrixValues>, 'input' | 'steps'> & {
   input: MatrixInput;
-  values: Record<MatrixPoint, number>;
-  steps: CalculationStep[];
+  steps: CalculationStep<MatrixPoint>[];
 };
 
 const FORMULA_VERSION = '1.0.0';
 
 export function calculateMatrix(input: MatrixInput): MatrixResult {
   const { birthYear, birthMonth, birthDay, normalizedBirthDate } = parseBirthDate(input.birthDate);
-  const steps: CalculationStep[] = [];
-  const values = {} as Record<MatrixPoint, number>;
+  const steps: CalculationStep<MatrixPoint>[] = [];
+  const values = {} as BaseMatrixValues;
 
   values.A = addStep(steps, 'A', 'reduceToEnergy(birthDay)', String(birthDay), birthDay);
   values.B = addStep(steps, 'B', 'birthMonth', String(birthMonth), birthMonth, false);
@@ -85,7 +52,7 @@ export function calculateMatrix(input: MatrixInput): MatrixResult {
 }
 
 function addStep(
-  steps: CalculationStep[],
+  steps: CalculationStep<MatrixPoint>[],
   key: MatrixPoint,
   formula: string,
   stepInput: string,
@@ -129,21 +96,4 @@ function parseBirthDate(birthDate: string): {
     birthDay: day,
     normalizedBirthDate: birthDate,
   };
-}
-
-function reduceToEnergy(value: number): number {
-  let energy = value;
-
-  while (energy > 22) {
-    energy = sumDigits(energy);
-  }
-
-  return energy;
-}
-
-function sumDigits(value: number): number {
-  return String(value)
-    .replace(/\D/g, '')
-    .split('')
-    .reduce((sum, digit) => sum + Number(digit), 0);
 }

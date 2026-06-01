@@ -1,39 +1,14 @@
-export type YearMatrixInput = {
-  birthDate: string;
+import { reduceToEnergy, sumDigits } from './reduceToEnergy';
+import type { BirthDateInput, CalculationResult, CalculationStep, YearMatrixValues } from './types';
+
+export type YearMatrixInput = BirthDateInput & {
   targetYear: number;
-  fullName?: string;
 };
 
-export type YearMatrixPoint =
-  | 'DayCode'
-  | 'YearCode'
-  | 'MonthCode'
-  | 'A_Year'
-  | 'B_Year'
-  | 'V_Year'
-  | 'G_Year'
-  | 'D_Year'
-  | 'E_Year'
-  | 'Yo_Year'
-  | 'Zh_Year'
-  | 'Z_Year'
-  | 'K_Year'
-  | 'L_Year'
-  | 'M_Year';
-
-export type CalculationStep = {
-  key: YearMatrixPoint;
-  formula: string;
-  input: string;
-  rawValue: number;
-  value: number;
-};
-
-export type YearMatrixResult = {
-  formulaVersion: string;
+export type YearMatrixPoint = keyof YearMatrixValues & string;
+export type YearMatrixResult = Omit<CalculationResult<YearMatrixValues>, 'input' | 'steps'> & {
   input: YearMatrixInput;
-  values: Record<YearMatrixPoint, number>;
-  steps: CalculationStep[];
+  steps: CalculationStep<YearMatrixPoint>[];
 };
 
 const FORMULA_VERSION = '1.0.0';
@@ -41,8 +16,8 @@ const FORMULA_VERSION = '1.0.0';
 export function calculateYearMatrix(input: YearMatrixInput): YearMatrixResult {
   const { birthYear, birthMonth, birthDay, normalizedBirthDate } = parseBirthDate(input.birthDate);
   const targetYear = normalizeTargetYear(input.targetYear);
-  const steps: CalculationStep[] = [];
-  const values = {} as Record<YearMatrixPoint, number>;
+  const steps: CalculationStep<YearMatrixPoint>[] = [];
+  const values = {} as YearMatrixValues;
   const dayCode = isLeapYear(targetYear) ? 15 : 14;
 
   values.DayCode = addStep(
@@ -90,7 +65,7 @@ export function calculateYearMatrix(input: YearMatrixInput): YearMatrixResult {
 }
 
 function addStep(
-  steps: CalculationStep[],
+  steps: CalculationStep<YearMatrixPoint>[],
   key: YearMatrixPoint,
   formula: string,
   stepInput: string,
@@ -146,21 +121,4 @@ function normalizeTargetYear(targetYear: number): number {
 
 function isLeapYear(year: number): boolean {
   return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
-}
-
-function reduceToEnergy(value: number): number {
-  let energy = value;
-
-  while (energy > 22) {
-    energy = sumDigits(energy);
-  }
-
-  return energy;
-}
-
-function sumDigits(value: number): number {
-  return String(value)
-    .replace(/\D/g, '')
-    .split('')
-    .reduce((sum, digit) => sum + Number(digit), 0);
 }
