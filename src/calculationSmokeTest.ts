@@ -63,3 +63,5 @@ function assertStepCount(name: string, steps: unknown[], expectedCount: number):
     throw new Error(`${name} expected ${expectedCount} calculation steps, received ${steps.length}.`);
   }
 }
+
+console.log('Calculation smoke test passed.');

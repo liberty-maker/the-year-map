@@ -43,9 +43,23 @@ export function calculateYearMatrix(input: YearMatrixInput): YearMatrixResult {
   const targetYear = normalizeTargetYear(input.targetYear);
   const steps: CalculationStep[] = [];
   const values = {} as Record<YearMatrixPoint, number>;
+  const dayCode = isLeapYear(targetYear) ? 15 : 14;
 
-  values.DayCode = addStep(steps, 'DayCode', 'isLeapYear(targetYear) ? 15 : 14', String(targetYear), isLeapYear(targetYear) ? 15 : 14, false);
-  values.YearCode = addStep(steps, 'YearCode', 'reduceToEnergy(sumDigits(targetYear))', String(targetYear), sumDigits(targetYear));
+  values.DayCode = addStep(
+    steps,
+    'DayCode',
+    'isLeapYear(targetYear) ? 15 : 14',
+    String(targetYear),
+    dayCode,
+    false,
+  );
+  values.YearCode = addStep(
+    steps,
+    'YearCode',
+    'reduceToEnergy(sumDigits(targetYear))',
+    String(targetYear),
+    sumDigits(targetYear),
+  );
   values.MonthCode = addStep(steps, 'MonthCode', 'YearCode + 12', `${values.YearCode} + 12`, values.YearCode + 12, false);
 
   values.A_Year = addStep(steps, 'A_Year', 'reduceToEnergy(birthDay + DayCode)', `${birthDay} + ${values.DayCode}`, birthDay + values.DayCode);
