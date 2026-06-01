@@ -143,6 +143,30 @@ export type AiGuideContext = {
   suggestedQuestions: string[];
 };
 
+
+export type ReportSection = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  body: string;
+  arcana: number[];
+};
+
+export type ReportData = {
+  title: string;
+  subtitle: string;
+  userName?: string;
+  generatedFor: {
+    birthDate: BirthDateInput;
+    gender: Gender;
+    targetYear: number;
+    targetMonth: number;
+    targetDate: string;
+  };
+  disclaimer: string;
+  sections: ReportSection[];
+};
+
 export type CalculationResult<TValues, TInput = BirthDateInput> = {
   formulaVersion: string;
   input: TInput;

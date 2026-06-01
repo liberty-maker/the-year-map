@@ -20,6 +20,7 @@
 - Add unified Year Map Profile aggregation as a completed foundation module for app, AI Guide, and PDF consumers.
 - Add Arcana Dictionary foundation as a completed content module for UI, AI Guide, and PDF interpretation.
 - Add AI Guide Context foundation as a completed preparation layer for future chat and reports.
+- Add Report Data Builder foundation as a completed content structure for future PDF and preview surfaces.
 - Add interpretation content for calculated values.
 - Keep interpretations separate from calculation formulas.
 - Prepare structured context for a future AI assistant.

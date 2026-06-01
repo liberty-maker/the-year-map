@@ -1,4 +1,4 @@
-import { buildAiGuideContext } from './buildAiGuideContext';
+import { buildReportData } from './buildReportData';
 import { calculateYearMapProfile } from './calculateYearMapProfile';
 
 const profile = calculateYearMapProfile({
@@ -8,6 +8,6 @@ const profile = calculateYearMapProfile({
   targetDate: '2026-06-01',
 });
 
-const aiGuideContext = buildAiGuideContext({ profile: profile.values });
+const reportData = buildReportData({ profile: profile.values });
 
-console.log(JSON.stringify({ aiGuideContext }, null, 2));
+console.log(JSON.stringify({ reportData }, null, 2));
