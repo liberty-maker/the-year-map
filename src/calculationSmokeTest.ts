@@ -1,7 +1,9 @@
 import { calculateMatrix } from './calculateMatrix';
 import { calculateYearMatrix } from './calculateYearMatrix';
 
-const matrix = calculateMatrix({ birthDate: '1998-06-15' });
+const birthDate = '1998-06-15';
+
+const matrix = calculateMatrix({ birthDate });
 const expectedMatrixValues = {
   A: 15,
   B: 6,
@@ -26,8 +28,8 @@ const expectedMatrixValues = {
   M: 9,
 };
 
-const yearMatrix = calculateYearMatrix({ birthDate: '1998-06-15', targetYear: 2026 });
-const expectedYearMatrixValues = {
+const yearMatrix2026 = calculateYearMatrix({ birthDate, targetYear: 2026 });
+const expectedYearMatrix2026Values = {
   DayCode: 14,
   YearCode: 10,
   MonthCode: 22,
@@ -45,22 +47,41 @@ const expectedYearMatrixValues = {
   M_Year: 3,
 };
 
+const leapYearMatrix2024 = calculateYearMatrix({ birthDate, targetYear: 2024 });
+const expectedLeapYearMatrix2024Values = {
+  DayCode: 15,
+  YearCode: 8,
+  MonthCode: 20,
+  A_Year: 3,
+  B_Year: 8,
+  V_Year: 8,
+  G_Year: 19,
+  D_Year: 11,
+  E_Year: 11,
+  Yo_Year: 16,
+  Zh_Year: 9,
+  Z_Year: 22,
+  K_Year: 3,
+  L_Year: 19,
+  M_Year: 22,
+};
+
 assertValues('calculateMatrix', matrix.values, expectedMatrixValues);
-assertValues('calculateYearMatrix', yearMatrix.values, expectedYearMatrixValues);
-assertStepCount('calculateMatrix', matrix.steps, Object.keys(expectedMatrixValues).length);
-assertStepCount('calculateYearMatrix', yearMatrix.steps, Object.keys(expectedYearMatrixValues).length);
+assertValues('calculateYearMatrix 2026', yearMatrix2026.values, expectedYearMatrix2026Values);
+assertValues('calculateYearMatrix 2024 leap year', leapYearMatrix2024.values, expectedLeapYearMatrix2024Values);
+assertEqual('calculateMatrix step count', matrix.steps.length, Object.keys(expectedMatrixValues).length);
+assertEqual('calculateYearMatrix 2026 step count', yearMatrix2026.steps.length, Object.keys(expectedYearMatrix2026Values).length);
+assertEqual('calculateYearMatrix 2024 leap year step count', leapYearMatrix2024.steps.length, Object.keys(expectedLeapYearMatrix2024Values).length);
 
 function assertValues(name: string, actual: Record<string, number>, expected: Record<string, number>): void {
   for (const [key, expectedValue] of Object.entries(expected)) {
-    if (actual[key] !== expectedValue) {
-      throw new Error(`${name}.${key} expected ${expectedValue}, received ${actual[key]}.`);
-    }
+    assertEqual(`${name}.${key}`, actual[key], expectedValue);
   }
 }
 
-function assertStepCount(name: string, steps: unknown[], expectedCount: number): void {
-  if (steps.length !== expectedCount) {
-    throw new Error(`${name} expected ${expectedCount} calculation steps, received ${steps.length}.`);
+function assertEqual(name: string, actual: unknown, expected: unknown): void {
+  if (actual !== expected) {
+    throw new Error(`${name} expected ${expected}, received ${actual}.`);
   }
 }
 
