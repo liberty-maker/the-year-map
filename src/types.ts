@@ -100,7 +100,7 @@ export type YearMapProfileInput = {
 };
 
 export type YearMapProfileValues = {
-  birthDate: BirthDateInput;
+  birthDate: string;
   gender: Gender;
   targetYear: number;
   targetMonth: number;

@@ -25,7 +25,7 @@ export function buildReportData(input: ReportDataInput): ReportData {
     subtitle: 'Your personal map for self-understanding and yearly navigation.',
     userName: input.userName,
     generatedFor: {
-      birthDate: profile.birthDate,
+      birthDate: { birthDate: profile.birthDate, gender: profile.gender },
       gender: profile.gender,
       targetYear: profile.targetYear,
       targetMonth: profile.targetMonth,

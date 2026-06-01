@@ -43,7 +43,7 @@ export function calculateYearMapProfile(input: YearMapProfileInput): YearMapProf
       gender,
     },
     values: {
-      birthDate,
+      birthDate: birthDate.birthDate,
       gender,
       targetYear: input.targetYear,
       targetMonth: input.targetMonth,
