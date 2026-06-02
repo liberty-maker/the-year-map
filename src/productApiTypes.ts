@@ -1,4 +1,4 @@
-import type { AiGuideContext, Gender, ReportData, YearMapProfileValues } from './types';
+import type { AiGuideContext, Gender, ReportData, SupportedLocale, YearMapProfileValues } from './types';
 
 export type CreateYearMapRequest = {
   userName?: string;
@@ -11,6 +11,8 @@ export type CreateYearMapRequest = {
 };
 
 export type CreateYearMapResponse = {
+  locale: SupportedLocale;
+  direction: 'ltr' | 'rtl';
   profile: YearMapProfileValues;
   aiGuideContext: AiGuideContext;
   reportData: ReportData;

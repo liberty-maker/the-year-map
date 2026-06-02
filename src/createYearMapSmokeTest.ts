@@ -10,6 +10,8 @@ const response = createYearMap({
   locale: 'en',
 });
 
+assertEqual('response locale', response.locale, 'en');
+assertEqual('response direction', response.direction, 'ltr');
 assertEqual('profile birthDate', response.profile.birthDate, '1998-06-15');
 assertEqual('profile gender', response.profile.gender, 'female');
 assertEqual('baseMatrix D', response.profile.baseMatrix.D, 6);
@@ -27,6 +29,17 @@ const defaultGenderResponse = createYearMap({
 });
 
 assertEqual('default gender', defaultGenderResponse.profile.gender, 'unspecified');
+
+const arabicLocaleResponse = createYearMap({
+  birthDate: '1998-06-15',
+  targetYear: 2026,
+  targetMonth: 6,
+  targetDate: '2026-06-01',
+  locale: 'ar-JO',
+});
+
+assertEqual('Arabic locale', arabicLocaleResponse.locale, 'ar');
+assertEqual('Arabic direction', arabicLocaleResponse.direction, 'rtl');
 
 function assertEqual(name: string, actual: unknown, expected: unknown): void {
   if (actual !== expected) {

@@ -2,6 +2,10 @@ export type Energy = number;
 
 export type Gender = 'female' | 'male' | 'child' | 'unspecified';
 
+export type SupportedLocale = 'en' | 'ru' | 'uk' | 'ar';
+
+export type LocalizedStringMap = Record<SupportedLocale, string>;
+
 export type BirthDateInput = {
   birthDate: string;
   fullName?: string;

@@ -1,9 +1,12 @@
 import { buildAiGuideContext } from './buildAiGuideContext';
 import { buildReportData } from './buildReportData';
 import { calculateYearMapProfile } from './calculateYearMapProfile';
+import { isRtlLocale, normalizeLocale } from './i18n';
 import type { CreateYearMapRequest, CreateYearMapResponse } from './productApiTypes';
 
 export function createYearMap(request: CreateYearMapRequest): CreateYearMapResponse {
+  const locale = normalizeLocale(request.locale);
+  const direction = isRtlLocale(locale) ? 'rtl' : 'ltr';
   const profileResult = calculateYearMapProfile({
     birthDate: { birthDate: request.birthDate },
     gender: request.gender,
@@ -22,6 +25,8 @@ export function createYearMap(request: CreateYearMapRequest): CreateYearMapRespo
   });
 
   return {
+    locale,
+    direction,
     profile,
     aiGuideContext,
     reportData,

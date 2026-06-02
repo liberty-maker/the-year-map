@@ -5,6 +5,7 @@ const yearMap = createYearMap({
   targetYear: 2026,
   targetMonth: 6,
   targetDate: '2026-06-01',
+  locale: 'en-GB',
 });
 
 console.log(JSON.stringify({ yearMap }, null, 2));

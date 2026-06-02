@@ -22,6 +22,7 @@
 - Add AI Guide Context foundation as a completed preparation layer for future chat and reports.
 - Add Report Data Builder foundation as a completed content structure for future PDF and preview surfaces.
 - Add Product API Contract foundation as a completed response shape for future frontend, mobile, AI Guide, and PDF surfaces.
+- Add i18n foundation as a completed locale normalization and direction layer.
 - Add interpretation content for calculated values.
 - Keep interpretations separate from calculation formulas.
 - Prepare structured context for a future AI assistant.
