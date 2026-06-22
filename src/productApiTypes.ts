@@ -1,11 +1,15 @@
 import type { MatrixResult } from './calculateMatrix';
 import type { YearMatrixResult } from './calculateYearMatrix';
 import type { ArcanaMeaning } from './arcanaDictionary';
+import type { PlanDefinition, EntitlementResult, PlanId } from './plans';
+import type { SupportedLocale, TextDirection } from './i18n';
 
 export type YearMapInput = {
   birthDate: string;
   targetYear: number;
   fullName?: string;
+  locale?: string;
+  planId?: PlanId | string;
 };
 
 export type EnergyValue = number;
@@ -106,6 +110,10 @@ export type ReportData = {
 };
 
 export type YearMapResult = {
+  locale: SupportedLocale;
+  direction: TextDirection;
+  plan: PlanDefinition;
+  entitlements: EntitlementResult;
   profile: YearMapProfile;
   enrichedProfile: EnrichedYearMapProfile;
   aiGuideContext: AiGuideContext;
